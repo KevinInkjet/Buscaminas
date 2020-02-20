@@ -1,3 +1,10 @@
+/*  Tarea #1 - Buscaminas
+	Compilador utilizado: Dev-c++
+	Kevin Samuel C?rdenas Mu?oz
+	cardenas.kevin@uabc.edu.mx
+	Prueba
+*/
+
 #include <iostream>
 #include <conio.h>
 #include <stdio.h>
