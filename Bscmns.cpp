@@ -1,9 +1,6 @@
-/*  Tarea #1 - Buscaminas
-	Compilador utilizado: Dev-c++
-	Kevin Samuel C?rdenas Mu?oz
-	cardenas.kevin@uabc.edu.mx
-	Prueba
-*/
+//Tarea 1 - Buscaminas
+//Kevin Samuel Cárdenas Muñoz
+//Compilador: Dev-C++
 
 #include <iostream>
 #include <conio.h>
