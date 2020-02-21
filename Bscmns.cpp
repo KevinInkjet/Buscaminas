@@ -10,9 +10,53 @@
 
 using namespace std;
 
+void expandir(int x, int y, char vista[][25], int tablero[][25], int n)
+{
+	if(vista[x-1][y] == 00 && x>0 && tablero[x][y] < 1 && tablero[x-1][y] != -1) //ARRIBA
+	{
+		vista[x-1][y] = 1;
+		expandir(x-1,y,vista,tablero,n);
+	}
+	if(vista[x+1][y] == 00 && x<n && tablero[x][y] < 1 && tablero[x+1][y] != -1) //ABAJO
+	{
+		vista[x+1][y] = 1;
+		expandir(x+1,y,vista,tablero,n);
+	}
+	if(vista[x][y-1] == 00 && y>0 && tablero[x][y] <1 && tablero[x][y-1] != -1) //IZQUIERDA
+	{
+		vista[x][y-1] = 1;
+		expandir(x,y-1,vista,tablero,n);
+	}
+	if(vista[x][y+1] == 00 && y<n && tablero[x][y] <1 && tablero[x][y+1] != -1) //DERECHA
+	{
+		vista[x][y+1] = 1;
+		expandir(x,y+1,vista,tablero,n);
+	}
+	if(vista[x+1][y-1] == 00 && y>0 && x<n && tablero[x][y] <1 && tablero[x+1][y-1] != -1) // INFERIOR IZQUIERDA
+	{
+		vista[x+1][y-1] = 1;
+		expandir(x+1,y-1,vista,tablero,n);
+	}
+	if(vista[x+1][y+1] == 00 && y<n && x<n && tablero[x][y] <1 && tablero[x+1][y+1] != -1) // INFERIOR DERECHA
+	{
+		vista[x+1][y+1] = 1;
+		expandir(x+1,y+1,vista,tablero,n);
+	}
+	if(vista[x-1][y-1] == 00 && y>0 && x>0 && tablero[x][y] <1 && tablero[x-1][y-1] != -1) //SUPERIOR IZQUIERDA
+	{
+		vista[x-1][y-1] = 1;
+		expandir(x-1,y-1,vista,tablero,n);
+	}
+	if(vista[x-1][y+1] == 00 && y<n && x>0 && tablero[x][y] <1 && tablero[x-1][y+1] != -1) //SUPERIOR DERECHA
+	{
+		vista[x-1][y+1] = 1;
+		expandir(x-1,y+1,vista,tablero,n);
+	}
+}
+
 int main()
 {
-	int n, tablero[25][25], fila, columna, i, azar1, azar2, x=0, y=0, count=0;
+	int n, tablero[25][25], fila, columna, i, azar1, azar2, x=0, y=0, count=0, casillas=-1;
 	char vista[25][25], cuadrado = 254;
 	bool valid = false, mensaje = false, win = false;
 	srand(time(NULL));
@@ -156,6 +200,7 @@ int main()
 				}
 			}
 			cout << endl;
+			cout << endl;
 		}
 		
 		do
@@ -164,9 +209,32 @@ int main()
 			cin>>x;
 			cout << "y: ";
 			cin>>y;
-		}while(x > 24 || y > 24);
+		}while(((x<0) || (x>0)) && ((y<0) || (y>n-1)));
 		
 		vista[x][y] = 1;
+		
+		//Expansión
+		if(tablero[x][y] == 0)
+		{
+			expandir(x,y,vista,tablero,n);
+		}
+		//Expansión ^
+		
+		for(fila=0; fila<n; fila++)
+		{
+			for(columna=0; columna<n; columna++)
+			{
+				if(vista[fila][columna] == 1 && tablero[fila][columna] != -1)
+				{
+					casillas++;
+				}
+			}
+		}
+		
+		if(casillas == (n*n)-n)
+		{
+			win = true;
+		}
 		
 		if(tablero[x][y] == -1)
 		{
@@ -175,4 +243,24 @@ int main()
 		
 		system("cls");
 	}while(win == false);
+	system("cls");
+	
+	if(casillas == (n*n)-n)
+	{
+		cout<< "¡Ganaste!" << endl;
+	}
+	else
+	{
+		cout << "Perdiste" << endl;
+	}
+	for(fila=0; fila<n; fila++)
+	{
+		for(columna=0; columna<n; columna++)
+		{
+			cout << tablero[fila][columna] << "\t";
+		}
+		cout << endl;
+		cout << endl;
+	}
+	
 }
