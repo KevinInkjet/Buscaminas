@@ -2,6 +2,21 @@
 //Kevin Samuel Cárdenas Muñoz
 //Compilador: Dev-C++
 
+//Permitir al usuario dar como entrada un valor entero N, y generar un tablero cuadrado de NxN.
+//Almacenar en una matriz de NxN en donde almacenará los valores de cada una de las casillas del tablero.
+//Generar N posiciones de casillas aleatorias diferentes dentro de la matriz y colocar las "minas" (valor -1).
+//Llenar el resto de las casillas de la matriz con el número de minas localizadas en sus casillas vecinas (ocho potenciales: arriba, abajo, izquierda, derecha, y las cuatro esquinas).
+//Una vez llena la matriz, se debe mostrar al usuario una representación del tablero sin especificar su contenido.
+
+//El juego deberá realizar las siguientes tareas:
+//Solicitar al usuario la coordenada (x,y) de la casilla que desea destapar.
+//Si la casilla contiene una mina el juego termina y el jugador pierde.
+//Si la casilla contiene un valor mayor a cero (es decir era una casilla que está junto a una mina por lo menos) se muestra ese valor en la posición correspondiente del tablero.
+//Si la casilla contiene un valor cero (una casilla que no tiene minas contiguas), se deben mostrar los valores de esta casilla y de todas las que estén en línea recta (vertical, horizontal, diagonal y diagonal inversa) en todos sentidos (arriba, abajo, izquierda, derecha) hasta encontrar en el camino casillas que contengan valores mayores a cero o se llegue al límite del tablero.
+//En el paso anterior nunca se puede llegar a una mina ya que para ello tendríamos que pasar primero por una casilla con valor mayor a cero lo cual detendría el recorrido en ese sentido.
+//Si el usuario logra destapar todas las casillas que no contienen minas gana el juego.
+//Al final siempre se debe mostrar el contenido del tablero y un mensaje que indique si el usuario ganó o perdió.
+
 #include <iostream>
 #include <conio.h>
 #include <stdio.h>
@@ -147,11 +162,11 @@ int main()
 			cout << "No utilizaste un rango adecuado, intenta otra vez." << endl;
 		}
 		cout << "Para el juego se utilizara el siguiente esquema de coordenadas donde debes ingresar un valor de x y otro de y " << endl;
-		cout << "Recuerda que solo puedes usar numeros del 0 al 24" << endl;
+		cout << "Recuerda que solo puedes usar numeros del 0 al " << n-1 << endl;
 		cout << "     y=0     y=1" << endl;
 		cout << "x=0  ___     ___" << endl;
 		cout << "x=1  ___     ___" << endl;
-		cout << "Como ejemplo, selecciona algun elemento de la matriz anterior..." << endl;
+		cout << "Como ejemplo, selecciona algun elemento de la matriz anterior de 2x2..." << endl;
 		cout << "x: ";
 		cin>>x;
 		cout << "y: ";
@@ -207,9 +222,12 @@ int main()
 		{
 			cout << "x: ";
 			cin>>x;
+		}while(x<0 || x>n-1);
+		do
+		{
 			cout << "y: ";
 			cin>>y;
-		}while(((x<0) || (x>0)) && ((y<0) || (y>n-1)));
+		}while(y<0 || y>n-1);
 		
 		vista[x][y] = 1;
 		
@@ -220,6 +238,7 @@ int main()
 		}
 		//Expansión ^
 		
+		casillas=0;
 		for(fila=0; fila<n; fila++)
 		{
 			for(columna=0; columna<n; columna++)
