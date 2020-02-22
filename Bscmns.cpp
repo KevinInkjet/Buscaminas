@@ -1,6 +1,7 @@
 //Tarea 1 - Buscaminas
 //Kevin Samuel Cárdenas Muñoz
 //Compilador: Dev-C++
+//Lenguaje: C++
 
 //Permitir al usuario dar como entrada un valor entero N, y generar un tablero cuadrado de NxN.
 //Almacenar en una matriz de NxN en donde almacenará los valores de cada una de las casillas del tablero.
